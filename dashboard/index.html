@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriTech Pro - Crop Advisory & Yield Prediction</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/chatbot.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-seedling logo-icon"></i>
+            <h2>AgriTech Pro</h2>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item active" data-section="dashboard">
+                <i class="fas fa-home"></i>
+                <span data-i18n="dashboard">Dashboard</span>
+            </li>
+            <li class="nav-item" data-section="yield-prediction">
+                <i class="fas fa-chart-line"></i>
+                <span data-i18n="yieldPrediction">Yield Prediction</span>
+            </li>
+            <li class="nav-item" data-section="crop-recommendation">
+                <i class="fas fa-leaf"></i>
+                <span data-i18n="cropRecommendation">Crop Recommendation</span>
+            </li>
+            <li class="nav-item" data-section="advisory">
+                <i class="fas fa-lightbulb"></i>
+                <span data-i18n="advisory">Advisory</span>
+            </li>
+            <li class="nav-item" data-section="weather">
+                <i class="fas fa-cloud-sun"></i>
+                <span data-i18n="weather">Weather</span>
+            </li>
+            <li class="nav-item" data-section="crop-info">
+                <i class="fas fa-book"></i>
+                <span data-i18n="cropDatabase">Crop Database</span>
+            </li>
+            <li class="nav-item" data-section="market-prices">
+                <i class="fas fa-rupee-sign"></i>
+                <span data-i18n="marketPrices">Market Prices</span>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <p><span data-i18n="version">Version</span> 1.0.0</p>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Top Header -->
+        <header class="top-header">
+            <div class="header-left">
+                <h1 id="page-title" data-i18n="dashboard">Dashboard</h1>
+            </div>
+            <div class="header-right">
+                <!-- Language Selector -->
+                <div class="language-selector">
+                    <button class="lang-toggle" id="lang-toggle">
+                        <i class="fas fa-globe"></i>
+                        <span id="current-lang-name">English</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="lang-dropdown" id="lang-dropdown">
+                        <div class="lang-option" data-lang="en">English</div>
+                        <div class="lang-option" data-lang="hi">हिन्दी</div>
+                        <div class="lang-option" data-lang="pa">ਪੰਜਾਬੀ</div>
+                        <div class="lang-option" data-lang="ta">தமிழ்</div>
+                        <div class="lang-option" data-lang="te">తెలుగు</div>
+                        <div class="lang-option" data-lang="bn">বাংলা</div>
+                        <div class="lang-option" data-lang="mr">मराठी</div>
+                        <div class="lang-option" data-lang="gu">ગુજરાતી</div>
+                        <div class="lang-option" data-lang="kn">ಕನ್ನಡ</div>
+                        <div class="lang-option" data-lang="ml">മലയാളം</div>
+                        <div class="lang-option" data-lang="or">ଓଡ଼ିଆ</div>
+                        <div class="lang-option" data-lang="bho">भोजपुरी</div>
+                    </div>
+                </div>
+                <div class="location-selector">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <input type="text" id="location-input" data-i18n-placeholder="enterLocation" placeholder="Enter location" value="Delhi">
+                </div>
+                <div class="date-display">
+                    <i class="fas fa-calendar"></i>
+                    <span id="current-date"></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="content-section active">
+            <div class="dashboard-grid">
+                <!-- Weather Card -->
+                <div class="card weather-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-cloud-sun"></i> <span data-i18n="currentWeather">Current Weather</span></h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="weather-main">
+                            <div class="temp-display">
+                                <span id="current-temp">--</span>°C
+                            </div>
+                            <div class="weather-details">
+                                <p id="weather-desc" data-i18n="loading">Loading...</p>
+                                <p><i class="fas fa-tint"></i> <span data-i18n="humidity">Humidity</span>: <span id="humidity">--</span>%</p>
+                                <p><i class="fas fa-wind"></i> <span data-i18n="wind">Wind</span>: <span id="wind-speed">--</span> m/s</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Daily Tip Card -->
+                <div class="card tip-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-lightbulb"></i> <span data-i18n="dailyFarmingTip">Daily Farming Tip</span></h3>
+                    </div>
+                    <div class="card-body">
+                        <p id="daily-tip">Loading...</p>
+                        <span class="tip-category" id="tip-category">-</span>
+                    </div>
+                </div>
+
+                <!-- Current Season Card -->
+                <div class="card season-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-calendar-alt"></i> <span data-i18n="currentSeason">Current Season</span></h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="season-display">
+                            <span id="current-season">--</span>
+                        </div>
+                        <p class="season-info" id="season-info">Loading season information...</p>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="card stats-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-chart-bar"></i> <span data-i18n="modelPerformance">Model Performance</span></h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="stat-item">
+                            <span class="stat-label" data-i18n="yieldPredictionR2">Yield Prediction R²</span>
+                            <span class="stat-value" id="model-r2">--</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label" data-i18n="recommendationAccuracy">Recommendation Accuracy</span>
+                            <span class="stat-value" id="model-accuracy">--</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label" data-i18n="supportedCrops">Supported Crops</span>
+                            <span class="stat-value" id="crop-count">15</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="card actions-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-bolt"></i> <span data-i18n="quickActions">Quick Actions</span></h3>
+                    </div>
+                    <div class="card-body">
+                        <button class="action-btn" data-action="yield">
+                            <i class="fas fa-chart-line"></i>
+                            <span data-i18n="predictYield">Predict Yield</span>
+                        </button>
+                        <button class="action-btn" data-action="recommend">
+                            <i class="fas fa-leaf"></i>
+                            <span data-i18n="getCropSuggestions">Get Crop Suggestions</span>
+                        </button>
+                        <button class="action-btn" data-action="advisory">
+                            <i class="fas fa-clipboard-list"></i>
+                            <span data-i18n="viewAdvisory">View Advisory</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Priority Actions -->
+                <div class="card priority-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Priority Actions</h3>
+                    </div>
+                    <div class="card-body" id="priority-actions">
+                        <div class="priority-item">
+                            <span class="priority-badge high">High</span>
+                            <span>Loading recommendations...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Yield Prediction Section -->
+        <section id="yield-prediction" class="content-section">
+            <div class="section-content">
+                <div class="card prediction-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-chart-line"></i> Crop Yield Prediction</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="yield-form" class="prediction-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="pred-crop">Crop</label>
+                                    <select id="pred-crop" required>
+                                        <option value="">Select Crop</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pred-area">Area (hectares)</label>
+                                    <input type="number" id="pred-area" step="0.1" min="0.1" required placeholder="e.g., 2.5">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pred-soil">Soil Type</label>
+                                    <select id="pred-soil" required>
+                                        <option value="">Select Soil Type</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="pred-temp">Temperature (°C)</label>
+                                    <input type="number" id="pred-temp" step="0.1" required placeholder="e.g., 28">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pred-rainfall">Rainfall (mm/year)</label>
+                                    <input type="number" id="pred-rainfall" required placeholder="e.g., 1200">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pred-humidity">Humidity (%)</label>
+                                    <input type="number" id="pred-humidity" min="0" max="100" placeholder="e.g., 70">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="pred-ph">Soil pH</label>
+                                    <input type="number" id="pred-ph" step="0.1" min="3" max="10" placeholder="e.g., 6.5">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pred-nitrogen">Nitrogen (kg/ha)</label>
+                                    <input type="number" id="pred-nitrogen" placeholder="e.g., 80">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pred-phosphorus">Phosphorus (kg/ha)</label>
+                                    <input type="number" id="pred-phosphorus" placeholder="e.g., 40">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="pred-potassium">Potassium (kg/ha)</label>
+                                    <input type="number" id="pred-potassium" placeholder="e.g., 100">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pred-fertilizer">Fertilizer Used (kg)</label>
+                                    <input type="number" id="pred-fertilizer" placeholder="e.g., 150">
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="submit-btn">
+                                        <i class="fas fa-calculator"></i> Predict Yield
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Prediction Results -->
+                <div class="card results-card" id="yield-results" style="display: none;">
+                    <div class="card-header">
+                        <h3><i class="fas fa-chart-pie"></i> Prediction Results</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="result-main">
+                            <div class="result-value">
+                                <span id="predicted-yield">--</span>
+                                <span class="unit">quintals/ha</span>
+                            </div>
+                            <div class="result-confidence">
+                                <span>Confidence: </span>
+                                <span id="prediction-confidence">--</span>%
+                            </div>
+                        </div>
+                        <div class="result-details" id="result-details">
+                            <!-- Additional details will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Crop Recommendation Section -->
+        <section id="crop-recommendation" class="content-section">
+            <div class="section-content">
+                <div class="card recommendation-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-leaf"></i> Crop Recommendation</h3>
+                        <p class="subtitle">Enter your soil and climate conditions to get crop suggestions</p>
+                    </div>
+                    <div class="card-body">
+                        <form id="recommend-form" class="prediction-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="rec-temp">Temperature (°C)</label>
+                                    <input type="number" id="rec-temp" step="0.1" required placeholder="e.g., 28">
+                                </div>
+                                <div class="form-group">
+                                    <label for="rec-rainfall">Rainfall (mm/year)</label>
+                                    <input type="number" id="rec-rainfall" required placeholder="e.g., 1200">
+                                </div>
+                                <div class="form-group">
+                                    <label for="rec-humidity">Humidity (%)</label>
+                                    <input type="number" id="rec-humidity" min="0" max="100" placeholder="e.g., 70" value="70">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="rec-ph">Soil pH</label>
+                                    <input type="number" id="rec-ph" step="0.1" min="3" max="10" required placeholder="e.g., 6.5">
+                                </div>
+                                <div class="form-group">
+                                    <label for="rec-nitrogen">Nitrogen (kg/ha)</label>
+                                    <input type="number" id="rec-nitrogen" required placeholder="e.g., 80">
+                                </div>
+                                <div class="form-group">
+                                    <label for="rec-phosphorus">Phosphorus (kg/ha)</label>
+                                    <input type="number" id="rec-phosphorus" required placeholder="e.g., 40">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="rec-potassium">Potassium (kg/ha)</label>
+                                    <input type="number" id="rec-potassium" required placeholder="e.g., 100">
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="submit-btn">
+                                        <i class="fas fa-search"></i> Get Recommendations
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Recommendation Results -->
+                <div class="card" id="recommendation-results" style="display: none;">
+                    <div class="card-header">
+                        <h3><i class="fas fa-clipboard-list"></i> Recommended Crops</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="recommendations-list" id="recommendations-list">
+                            <!-- Recommendations will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Advisory Section -->
+        <section id="advisory" class="content-section">
+            <div class="section-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-clipboard-list"></i> Farming Advisory</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="advisory-filters">
+                            <select id="advisory-crop-filter">
+                                <option value="">All Crops</option>
+                            </select>
+                            <select id="advisory-season-filter">
+                                <option value="">Current Season</option>
+                                <option value="Kharif">Kharif</option>
+                                <option value="Rabi">Rabi</option>
+                                <option value="Zaid">Zaid</option>
+                            </select>
+                            <button class="btn-secondary" id="load-advisory">
+                                <i class="fas fa-sync"></i> Load Advisory
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advisory Content -->
+                <div class="advisory-content" id="advisory-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 id="advisory-title">Loading...</h3>
+                        </div>
+                        <div class="card-body" id="advisory-body">
+                            <p>Select a crop or season to view advisory</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fertilizer Calculator -->
+                <div class="card fertilizer-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-flask"></i> Fertilizer Calculator</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="fert-crop">Crop</label>
+                                <select id="fert-crop">
+                                    <option value="">Select Crop</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="fert-area">Area (hectares)</label>
+                                <input type="number" id="fert-area" step="0.1" min="0.1" placeholder="e.g., 2.5">
+                            </div>
+                            <div class="form-group">
+                                <button class="submit-btn" id="calc-fertilizer">
+                                    <i class="fas fa-calculator"></i> Calculate
+                                </button>
+                            </div>
+                        </div>
+                        <div id="fertilizer-results" style="display: none;">
+                            <!-- Fertilizer results will be shown here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Weather Section -->
+        <section id="weather" class="content-section">
+            <div class="section-content">
+                <div class="weather-grid">
+                    <!-- Current Weather -->
+                    <div class="card weather-detail-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-sun"></i> Current Conditions</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="weather-current" id="weather-current">
+                                <div class="temp-large">
+                                    <span id="weather-temp-large">--</span>°C
+                                </div>
+                                <div class="weather-info">
+                                    <p id="weather-location">Loading...</p>
+                                    <p id="weather-condition">--</p>
+                                    <div class="weather-metrics">
+                                        <span><i class="fas fa-tint"></i> <span id="weather-humidity">--</span>%</span>
+                                        <span><i class="fas fa-wind"></i> <span id="weather-wind">--</span> m/s</span>
+                                        <span><i class="fas fa-compress-arrows-alt"></i> <span id="weather-pressure">--</span> hPa</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Agricultural Metrics -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-tractor"></i> Agricultural Conditions</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="agri-metrics" id="agri-metrics">
+                                <div class="metric-item">
+                                    <span class="metric-label">Rain Probability</span>
+                                    <span class="metric-value" id="rain-prob">--%</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">Frost Risk</span>
+                                    <span class="metric-value" id="frost-risk">--</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">Heat Stress Risk</span>
+                                    <span class="metric-value" id="heat-risk">--</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-label">Spraying Suitable</span>
+                                    <span class="metric-value" id="spray-suitable">--</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 7-Day Forecast -->
+                    <div class="card forecast-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-calendar-week"></i> 7-Day Forecast</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="forecast-grid" id="forecast-grid">
+                                <!-- Forecast items will be inserted here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Weather Recommendations -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-info-circle"></i> Weather-Based Recommendations</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="recommendation-list" id="weather-recommendations">
+                                <li>Loading recommendations...</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Crop Info Section -->
+        <section id="crop-info" class="content-section">
+            <div class="section-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-book"></i> Crop Database</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="crop-selector">
+                            <label>Select Crop:</label>
+                            <select id="crop-info-select">
+                                <option value="">Choose a crop...</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Crop Details -->
+                <div class="card crop-details-card" id="crop-details" style="display: none;">
+                    <div class="card-header">
+                        <h3 id="crop-detail-name">Crop Details</h3>
+                    </div>
+                    <div class="card-body" id="crop-detail-body">
+                        <!-- Crop details will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Market Prices Section -->
+        <section id="market-prices" class="content-section">
+            <div class="section-content">
+                <!-- Quick Stats Row -->
+                <div class="market-stats-row">
+                    <div class="stat-card trending-up">
+                        <div class="stat-icon"><i class="fas fa-arrow-trend-up"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="crops-up-count">--</span>
+                            <span class="stat-text">Crops Rising</span>
+                        </div>
+                    </div>
+                    <div class="stat-card trending-down">
+                        <div class="stat-icon"><i class="fas fa-arrow-trend-down"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="crops-down-count">--</span>
+                            <span class="stat-text">Crops Falling</span>
+                        </div>
+                    </div>
+                    <div class="stat-card stable">
+                        <div class="stat-icon"><i class="fas fa-minus"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="crops-stable-count">--</span>
+                            <span class="stat-text">Stable</span>
+                        </div>
+                    </div>
+                    <div class="stat-card total">
+                        <div class="stat-icon"><i class="fas fa-seedling"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="total-crops-count">--</span>
+                            <span class="stat-text">Total Crops</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Price Alerts Card -->
+                <div class="card price-alerts-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-bell"></i> <span data-i18n="priceAlerts">Price Alerts</span></h3>
+                        <span class="live-indicator"><span class="pulse-dot"></span> Live</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="alerts-container" id="price-alerts">
+                            <div class="skeleton-loader alert-skeleton"></div>
+                            <div class="skeleton-loader alert-skeleton"></div>
+                            <div class="skeleton-loader alert-skeleton"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mandi Selector and Filters -->
+                <div class="card filters-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-sliders-h"></i> <span data-i18n="filters">Quick Filters</span></h3>
+                        <button class="btn btn-icon" id="toggle-filters" title="Toggle Filters">
+                            <i class="fas fa-chevron-up"></i>
+                        </button>
+                    </div>
+                    <div class="card-body filters-body" id="filters-body">
+                        <div class="filters-grid">
+                            <div class="filter-group">
+                                <label for="mandi-select"><i class="fas fa-store"></i> Mandi</label>
+                                <select id="mandi-select">
+                                    <option value="Delhi">🏛️ Delhi</option>
+                                    <option value="Mumbai">🏙️ Mumbai</option>
+                                    <option value="Ahmedabad">🌆 Ahmedabad</option>
+                                    <option value="Indore">🏢 Indore</option>
+                                    <option value="Ludhiana">🌾 Ludhiana</option>
+                                    <option value="Jaipur">🏰 Jaipur</option>
+                                    <option value="Nagpur">🍊 Nagpur</option>
+                                    <option value="Kolkata">🌉 Kolkata</option>
+                                    <option value="Chennai">🏖️ Chennai</option>
+                                    <option value="Hyderabad">💎 Hyderabad</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label for="category-select"><i class="fas fa-layer-group"></i> Category</label>
+                                <select id="category-select">
+                                    <option value="">🌐 All Categories</option>
+                                    <option value="cereals">🌾 Cereals</option>
+                                    <option value="pulses">🫘 Pulses</option>
+                                    <option value="oilseeds">🥜 Oilseeds</option>
+                                    <option value="cash_crops">💰 Cash Crops</option>
+                                    <option value="vegetables">🥬 Vegetables</option>
+                                </select>
+                            </div>
+                            <div class="filter-group search-group">
+                                <label for="crop-search"><i class="fas fa-search"></i> Search Crop</label>
+                                <div class="search-input-wrapper">
+                                    <input type="text" id="crop-search" placeholder="Type crop name...">
+                                    <button class="clear-search" id="clear-search" title="Clear"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                            <div class="filter-group actions-group">
+                                <label><i class="fas fa-cog"></i> Actions</label>
+                                <div class="action-buttons">
+                                    <button class="btn btn-primary btn-sm" id="refresh-prices" title="Refresh Prices">
+                                        <i class="fas fa-sync-alt"></i> Refresh
+                                    </button>
+                                    <label class="toggle-switch" title="Auto-refresh every 30s">
+                                        <input type="checkbox" id="auto-refresh" checked>
+                                        <span class="toggle-slider"></span>
+                                        <span class="toggle-label">Auto</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Price Table -->
+                <div class="card prices-table-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-rupee-sign"></i> <span data-i18n="liveMarketPrices">Live Market Prices</span></h3>
+                        <div class="header-actions">
+                            <div class="last-updated">
+                                <i class="fas fa-clock"></i>
+                                <span id="prices-last-updated">--</span>
+                            </div>
+                            <div class="view-toggle">
+                                <button class="view-btn active" data-view="table" title="Table View"><i class="fas fa-table"></i></button>
+                                <button class="view-btn" data-view="cards" title="Card View"><i class="fas fa-th-large"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <!-- Table View -->
+                        <div class="table-view active" id="table-view">
+                            <div class="table-responsive">
+                                <table class="prices-table" id="prices-table">
+                                    <thead>
+                                        <tr>
+                                            <th class="sortable" data-sort="crop">Crop <i class="fas fa-sort"></i></th>
+                                            <th class="sortable" data-sort="category">Category <i class="fas fa-sort"></i></th>
+                                            <th class="sortable" data-sort="msp">MSP (₹) <i class="fas fa-sort"></i></th>
+                                            <th class="sortable" data-sort="price">Market Price (₹) <i class="fas fa-sort"></i></th>
+                                            <th class="sortable" data-sort="change">Change <i class="fas fa-sort"></i></th>
+                                            <th>Trend</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="prices-tbody">
+                                        <tr><td colspan="7"><div class="skeleton-loader table-skeleton"></div></td></tr>
+                                        <tr><td colspan="7"><div class="skeleton-loader table-skeleton"></div></td></tr>
+                                        <tr><td colspan="7"><div class="skeleton-loader table-skeleton"></div></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- Card View -->
+                        <div class="cards-view" id="cards-view">
+                            <div class="price-cards-grid" id="price-cards-grid">
+                                <!-- Price cards will be inserted here -->
+                            </div>
+                        </div>
+                        <!-- No Results -->
+                        <div class="no-results" id="no-results" style="display: none;">
+                            <i class="fas fa-search"></i>
+                            <p>No crops found matching your search</p>
+                            <button class="btn btn-outline" id="clear-filters">Clear Filters</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Price History Chart Card -->
+                <div class="card price-history-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-chart-area"></i> <span data-i18n="priceHistory">7-Day Price Trend</span></h3>
+                        <div class="chart-controls">
+                            <select id="history-crop-select">
+                                <option value="Wheat">🌾 Wheat</option>
+                                <option value="Rice">🍚 Rice</option>
+                                <option value="Cotton">🧶 Cotton</option>
+                                <option value="Soybean">🫛 Soybean</option>
+                                <option value="Onion">🧅 Onion</option>
+                                <option value="Tomato">🍅 Tomato</option>
+                                <option value="Potato">🥔 Potato</option>
+                                <option value="Maize">🌽 Maize</option>
+                                <option value="Groundnut">🥜 Groundnut</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="price-history-chart" id="price-history-chart">
+                            <div class="chart-y-axis" id="chart-y-axis">
+                                <span class="y-label"></span>
+                                <span class="y-label"></span>
+                                <span class="y-label"></span>
+                            </div>
+                            <div class="chart-area">
+                                <div class="chart-bars" id="chart-bars">
+                                    <!-- Chart bars will be inserted here -->
+                                </div>
+                                <div class="chart-labels" id="chart-labels">
+                                    <!-- Day labels will be inserted here -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="price-stats" id="price-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-arrow-down stat-icon-mini"></i>
+                                <span class="stat-label">Lowest</span>
+                                <span class="stat-value" id="stat-min">--</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-arrow-up stat-icon-mini"></i>
+                                <span class="stat-label">Highest</span>
+                                <span class="stat-value" id="stat-max">--</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-calculator stat-icon-mini"></i>
+                                <span class="stat-label">Average</span>
+                                <span class="stat-value" id="stat-avg">--</span>
+                            </div>
+                            <div class="stat-item highlight">
+                                <i class="fas fa-chart-line stat-icon-mini"></i>
+                                <span class="stat-label">Week Change</span>
+                                <span class="stat-value" id="stat-week-change">--</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Selling Recommendations -->
+                <div class="card selling-recommendations-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-hand-holding-usd"></i> <span data-i18n="sellingTips">Selling Recommendations</span></h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="recommendations-grid" id="selling-recommendations">
+                            <div class="recommendation-item good">
+                                <i class="fas fa-arrow-up"></i>
+                                <div class="rec-content">
+                                    <h4>Loading...</h4>
+                                    <p>Fetching recommendations...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loader">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- JavaScript Files -->
+    <script src="js/translations.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/chatbot.js"></script>
+</body>
+</html>

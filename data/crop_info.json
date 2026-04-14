@@ -1,0 +1,300 @@
+{
+  "crops": {
+    "Rice": {
+      "scientific_name": "Oryza sativa",
+      "family": "Poaceae",
+      "category": "Cereal",
+      "description": "Rice is the most widely consumed staple food for a large part of the world's human population, especially in Asia.",
+      "growing_conditions": {
+        "temperature": {
+          "min": 20,
+          "max": 35,
+          "optimal": 28
+        },
+        "rainfall": {
+          "min": 1000,
+          "optimal": 1500
+        },
+        "ph": {
+          "min": 5.5,
+          "max": 7.0,
+          "optimal": 6.5
+        },
+        "humidity": {
+          "min": 60,
+          "max": 90
+        }
+      },
+      "seasons": ["Kharif"],
+      "duration_days": 120,
+      "water_requirement": "High",
+      "suitable_soils": ["Alluvial", "Clay", "Loamy"],
+      "nutrients": {
+        "nitrogen": 120,
+        "phosphorus": 60,
+        "potassium": 40
+      },
+      "common_pests": ["Stem Borer", "Brown Plant Hopper", "Leaf Folder"],
+      "common_diseases": ["Blast", "Sheath Blight", "Bacterial Leaf Blight"],
+      "yield_range": {
+        "low": 25,
+        "average": 40,
+        "high": 60
+      },
+      "market_price_range": {
+        "min": 1800,
+        "max": 2500,
+        "currency": "INR/quintal"
+      }
+    },
+    "Wheat": {
+      "scientific_name": "Triticum aestivum",
+      "family": "Poaceae",
+      "category": "Cereal",
+      "description": "Wheat is a grass widely cultivated for its seed, a cereal grain which is a worldwide staple food.",
+      "growing_conditions": {
+        "temperature": {
+          "min": 10,
+          "max": 25,
+          "optimal": 18
+        },
+        "rainfall": {
+          "min": 400,
+          "optimal": 600
+        },
+        "ph": {
+          "min": 6.0,
+          "max": 7.5,
+          "optimal": 7.0
+        },
+        "humidity": {
+          "min": 40,
+          "max": 70
+        }
+      },
+      "seasons": ["Rabi"],
+      "duration_days": 150,
+      "water_requirement": "Medium",
+      "suitable_soils": ["Alluvial", "Loamy", "Clay"],
+      "nutrients": {
+        "nitrogen": 120,
+        "phosphorus": 60,
+        "potassium": 40
+      },
+      "common_pests": ["Aphids", "Termites", "Shoot Fly"],
+      "common_diseases": ["Rust", "Smut", "Powdery Mildew"],
+      "yield_range": {
+        "low": 20,
+        "average": 35,
+        "high": 50
+      },
+      "market_price_range": {
+        "min": 2000,
+        "max": 2800,
+        "currency": "INR/quintal"
+      }
+    },
+    "Maize": {
+      "scientific_name": "Zea mays",
+      "family": "Poaceae",
+      "category": "Cereal",
+      "description": "Maize, also known as corn, is a cereal grain first domesticated by indigenous peoples in southern Mexico.",
+      "growing_conditions": {
+        "temperature": {
+          "min": 18,
+          "max": 32,
+          "optimal": 25
+        },
+        "rainfall": {
+          "min": 500,
+          "optimal": 800
+        },
+        "ph": {
+          "min": 5.5,
+          "max": 7.5,
+          "optimal": 6.5
+        },
+        "humidity": {
+          "min": 50,
+          "max": 80
+        }
+      },
+      "seasons": ["Kharif", "Rabi"],
+      "duration_days": 90,
+      "water_requirement": "Medium",
+      "suitable_soils": ["Loamy", "Alluvial", "Sandy"],
+      "nutrients": {
+        "nitrogen": 150,
+        "phosphorus": 60,
+        "potassium": 40
+      },
+      "common_pests": ["Fall Armyworm", "Stem Borer", "Aphids"],
+      "common_diseases": ["Downy Mildew", "Leaf Blight", "Rust"],
+      "yield_range": {
+        "low": 30,
+        "average": 50,
+        "high": 80
+      },
+      "market_price_range": {
+        "min": 1700,
+        "max": 2200,
+        "currency": "INR/quintal"
+      }
+    },
+    "Cotton": {
+      "scientific_name": "Gossypium hirsutum",
+      "family": "Malvaceae",
+      "category": "Fiber",
+      "description": "Cotton is a soft, fluffy staple fiber that grows in a boll around the seeds of cotton plants.",
+      "growing_conditions": {
+        "temperature": {
+          "min": 25,
+          "max": 35,
+          "optimal": 30
+        },
+        "rainfall": {
+          "min": 600,
+          "optimal": 1000
+        },
+        "ph": {
+          "min": 6.0,
+          "max": 8.0,
+          "optimal": 7.0
+        },
+        "humidity": {
+          "min": 40,
+          "max": 70
+        }
+      },
+      "seasons": ["Kharif"],
+      "duration_days": 180,
+      "water_requirement": "Medium",
+      "suitable_soils": ["Black", "Alluvial", "Loamy"],
+      "nutrients": {
+        "nitrogen": 150,
+        "phosphorus": 60,
+        "potassium": 60
+      },
+      "common_pests": ["Bollworm", "Whitefly", "Jassids", "Aphids"],
+      "common_diseases": ["Wilt", "Root Rot", "Leaf Curl"],
+      "yield_range": {
+        "low": 10,
+        "average": 15,
+        "high": 25
+      },
+      "market_price_range": {
+        "min": 5500,
+        "max": 7000,
+        "currency": "INR/quintal"
+      }
+    },
+    "Potato": {
+      "scientific_name": "Solanum tuberosum",
+      "family": "Solanaceae",
+      "category": "Tuber",
+      "description": "The potato is a root vegetable native to the Americas, a starchy tuber of the plant Solanum tuberosum.",
+      "growing_conditions": {
+        "temperature": {
+          "min": 15,
+          "max": 25,
+          "optimal": 20
+        },
+        "rainfall": {
+          "min": 400,
+          "optimal": 600
+        },
+        "ph": {
+          "min": 5.0,
+          "max": 6.5,
+          "optimal": 5.5
+        },
+        "humidity": {
+          "min": 60,
+          "max": 80
+        }
+      },
+      "seasons": ["Rabi"],
+      "duration_days": 90,
+      "water_requirement": "Medium",
+      "suitable_soils": ["Loamy", "Sandy", "Alluvial"],
+      "nutrients": {
+        "nitrogen": 180,
+        "phosphorus": 80,
+        "potassium": 100
+      },
+      "common_pests": ["Aphids", "Tuber Moth", "Cutworm"],
+      "common_diseases": ["Late Blight", "Early Blight", "Common Scab"],
+      "yield_range": {
+        "low": 150,
+        "average": 200,
+        "high": 300
+      },
+      "market_price_range": {
+        "min": 800,
+        "max": 1500,
+        "currency": "INR/quintal"
+      }
+    }
+  },
+  "soil_types": {
+    "Alluvial": {
+      "description": "Fertile soil deposited by rivers, rich in minerals",
+      "characteristics": ["High fertility", "Good water retention", "Rich in potash"],
+      "suitable_crops": ["Rice", "Wheat", "Sugarcane", "Maize"],
+      "regions": ["Indo-Gangetic Plains", "River deltas"]
+    },
+    "Black": {
+      "description": "Also called Regur soil, rich in calcium, potassium, and magnesium",
+      "characteristics": ["High moisture retention", "Self-plowing", "High fertility"],
+      "suitable_crops": ["Cotton", "Soybean", "Sorghum", "Sunflower"],
+      "regions": ["Deccan Plateau", "Maharashtra", "Gujarat"]
+    },
+    "Red": {
+      "description": "Formed due to weathering of crystalline ignite rocks",
+      "characteristics": ["Low humus", "Porous", "Acidic"],
+      "suitable_crops": ["Groundnut", "Millet", "Tobacco", "Potato"],
+      "regions": ["Eastern and Southern India"]
+    },
+    "Loamy": {
+      "description": "Mixture of sand, silt, and clay with good drainage",
+      "characteristics": ["Good aeration", "Easy to work", "Balanced moisture"],
+      "suitable_crops": ["Most crops", "Vegetables", "Cereals"],
+      "regions": ["Various regions"]
+    },
+    "Sandy": {
+      "description": "Light soil with large particles and poor water retention",
+      "characteristics": ["Good drainage", "Low fertility", "Easy tillage"],
+      "suitable_crops": ["Groundnut", "Melon", "Potato", "Carrots"],
+      "regions": ["Rajasthan", "Coastal areas"]
+    }
+  },
+  "seasons": {
+    "Kharif": {
+      "months": ["June", "July", "August", "September", "October"],
+      "description": "Monsoon cropping season",
+      "major_crops": ["Rice", "Cotton", "Maize", "Soybean", "Groundnut", "Millet"],
+      "sowing_time": "June-July",
+      "harvesting_time": "September-October"
+    },
+    "Rabi": {
+      "months": ["November", "December", "January", "February", "March"],
+      "description": "Winter cropping season",
+      "major_crops": ["Wheat", "Barley", "Mustard", "Potato", "Onion"],
+      "sowing_time": "October-November",
+      "harvesting_time": "March-April"
+    },
+    "Zaid": {
+      "months": ["March", "April", "May", "June"],
+      "description": "Summer cropping season",
+      "major_crops": ["Watermelon", "Muskmelon", "Cucumber", "Vegetables"],
+      "sowing_time": "February-March",
+      "harvesting_time": "May-June"
+    }
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "last_updated": "2026-02-21",
+    "data_source": "Agricultural Research Data",
+    "coverage": "India"
+  }
+}
